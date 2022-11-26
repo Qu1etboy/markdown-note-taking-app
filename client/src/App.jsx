@@ -6,7 +6,7 @@ function App() {
   const { user, authIsReady } = useAuthContext();
 
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center gap-2">
+    <div className="relative w-full flex flex-col items-center p-5 gap-2">
       {authIsReady ? (
         <>{user == null ? <SignInButton /> : <Home user={user} />}</>
       ) : (

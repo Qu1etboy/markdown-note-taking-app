@@ -47,6 +47,46 @@ app.post("/users", (req, res) => {
   }
 });
 
+app.post("/notes", (req, res) => {
+  try {
+    const { userId, title, icon, content } = req.body;
+
+    db.query(
+      "INSERT INTO notes (userId, title, icon, content) VALUES (?, ?, ?, ?)",
+      [userId, title, icon, content],
+      (err, result) => {
+        if (err) {
+          return res.status(400).send();
+        }
+        res.json(result);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).send();
+  }
+});
+
+app.get("/:userId/notes", (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    db.query(
+      "SELECT * FROM notes WHERE userId = ?",
+      [userId],
+      (err, result) => {
+        if (err) {
+          return res.status(400).send();
+        }
+        res.json(result);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).send();
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`);
 });
