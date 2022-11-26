@@ -17,7 +17,6 @@ export const useLogin = () => {
       dispatch({ type: "LOGIN", payload: user });
       // add user to database
       createUser(user);
-      console.log(user);
     } catch (err) {
       console.log(err);
     }

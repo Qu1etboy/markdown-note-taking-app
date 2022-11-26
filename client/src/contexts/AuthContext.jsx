@@ -12,8 +12,6 @@ const AuthContextProvider = ({ children }) => {
     authIsReady: false,
   });
 
-  console.log(state);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       dispatch({ type: "AUTH_IS_READY", payload: user });
