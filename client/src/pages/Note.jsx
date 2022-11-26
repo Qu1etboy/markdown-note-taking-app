@@ -1,9 +1,9 @@
-import { async } from "@firebase/util";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getNoteById, updateNote } from "../api/notes";
 import Navbar from "../components/Navbar";
+import md from "markdown-it";
 
 const Note = () => {
   const location = useLocation();
@@ -59,7 +59,7 @@ const Note = () => {
         <p>Edited {currNote.updatedAt?.replace("T", " ").slice(0, 16)}</p>
       </div>
       <div className="container w-full">
-        <h1 className="text-3xl mb-3">{currNote.title}</h1>
+        <h1 className="text-5xl font-bold mb-3">{currNote.title}</h1>
       </div>
       {editable ? (
         <textarea
@@ -76,7 +76,15 @@ const Note = () => {
                 note.
               </p>
             ) : (
-              <p className="whitespace-pre-wrap text-lg">{currNote.content}</p>
+              <div
+                className="prose prose-md dark:prose-invert"
+                dangerouslySetInnerHTML={{
+                  __html: md().render(
+                    currNote.content == null ? "" : currNote.content
+                  ),
+                }}
+              ></div>
+              // <p className="whitespace-pre-wrap text-lg">{currNote.content}</p>
             )}
           </div>
         </div>
