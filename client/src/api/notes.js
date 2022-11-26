@@ -1,13 +1,14 @@
 import { async } from "@firebase/util";
 
 export const createNote = async (note) => {
-  await fetch("http://localhost:3000/notes", {
+  const res = await fetch("http://localhost:3000/notes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(note),
   });
+  return await res.json();
 };
 
 export const getNote = async (userId) => {

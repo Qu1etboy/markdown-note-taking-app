@@ -56,9 +56,20 @@ app.post("/notes", (req, res) => {
       [userId, title, icon, content],
       (err, result) => {
         if (err) {
+          console.log(err);
           return res.status(400).send();
         }
-        res.json(result);
+        const noteId = result.insertId;
+        db.query(
+          "SELECT * FROM notes WHERE noteId = ?",
+          [noteId],
+          (err, result) => {
+            if (err) {
+              return res.status(400).send();
+            }
+            res.json(result[0]);
+          }
+        );
       }
     );
   } catch (err) {

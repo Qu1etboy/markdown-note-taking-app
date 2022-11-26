@@ -21,6 +21,10 @@ const Note = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log(currNote);
+  }, [currNote]);
+
   const handleEdit = (e) => {
     setCurrNote({ ...currNote, content: e.target.value });
   };
@@ -30,11 +34,11 @@ const Note = () => {
   };
 
   return (
-    <div className="relative w-full flex flex-col items-center py-5 gap-2">
+    <div className="relative w-full flex flex-col items-center py-5 px-3 lg:px-0 gap-2">
       <Navbar />
 
       {/* <h1>This is note page you can start edit and write your note here</h1> */}
-      <div className="container w-full">
+      <div className="container w-full flex items-center">
         {!editable ? (
           <button
             type="button"
@@ -52,19 +56,28 @@ const Note = () => {
             Save
           </button>
         )}
+        <p>Edited {currNote.updatedAt?.replace("T", " ").slice(0, 16)}</p>
       </div>
-
+      <div className="container w-full">
+        <h1 className="text-3xl mb-3">{currNote.title}</h1>
+      </div>
       {editable ? (
         <textarea
-          className="container rounded-md w-full h-[60vh] p-2"
+          className="container rounded-md w-full h-[72vh] p-2"
           defaultValue={currNote.content}
           onChange={(e) => handleEdit(e)}
         />
       ) : (
-        <div className="overflow-scroll w-full flex justify-center">
-          <div className="container w-full h-[72vh]">
-            <h1 className="text-3xl mb-3">{currNote.title}</h1>
-            <p className="whitespace-pre-wrap text-lg">{currNote.content}</p>
+        <div className="w-full flex justify-center">
+          <div className="container w-full">
+            {currNote.content === "" ? (
+              <p className="mt-10">
+                This note is empty. Start by click edit button to write some
+                note.
+              </p>
+            ) : (
+              <p className="whitespace-pre-wrap text-lg">{currNote.content}</p>
+            )}
           </div>
         </div>
       )}

@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className="container w-full flex justify-between items-center border-b border-b-black pb-3 mb-5 relative">
       <div>
-        <Link to="/" className="text-xl">
+        <Link to="/" className="text-xl font-bold">
           Markdown Note Taking App
         </Link>
       </div>
