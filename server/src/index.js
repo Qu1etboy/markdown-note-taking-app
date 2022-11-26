@@ -87,6 +87,28 @@ app.get("/:userId/notes", (req, res) => {
   }
 });
 
+app.patch("/:userId/notes/:noteId", (req, res) => {
+  try {
+    const { title, icon, content } = req.body;
+    const { userId, noteId } = req.params;
+
+    db.query(
+      "UPDATE notes SET title = ?, icon = ?, content = ? WHERE noteId = ?",
+      [title, icon, content, noteId],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.json(result);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).send();
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`);
 });

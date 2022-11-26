@@ -18,7 +18,7 @@ const router = createBrowserRouter(
     <Route element={<AuthLayout />}>
       <Route path="/" element={<App />} />
       <Route path="/" element={<ProtectedLayout />}>
-        <Route path="notes" element={<Note />} />
+        <Route path="notes/:id" element={<Note />} />
       </Route>
     </Route>
   )

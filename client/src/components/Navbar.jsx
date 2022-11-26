@@ -1,5 +1,6 @@
 import { useAuthContext } from "../contexts/AuthContext";
 import { useLogout } from "../hooks/useLogout";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { user } = useAuthContext();
@@ -7,7 +8,9 @@ const Navbar = () => {
   return (
     <nav className="container w-full flex justify-between items-center border-b border-b-black pb-3 mb-5">
       <div>
-        <h1 className="text-xl">Logo</h1>
+        <Link to="/" className="text-xl">
+          Markdown Note Taking App
+        </Link>
       </div>
       <div className="flex items-center gap-3">
         <img
