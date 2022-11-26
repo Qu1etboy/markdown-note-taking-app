@@ -3,7 +3,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 
 export const ProtectedLayout = ({ children }) => {
   const { user, authIsReady } = useAuthContext();
-  console.log("protectedRoute user = " + user);
+  // console.log("protectedRoute user = " + user);
   // need to wait for firebase to process the authentication
   if (authIsReady) {
     if (user == null) {
