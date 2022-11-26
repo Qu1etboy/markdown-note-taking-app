@@ -1,0 +1,7 @@
+CREATE TABLE users (
+  userId VARCHAR(255) NOT NULL PRIMARY KEY,
+  displayName VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  photoURL VARCHAR(1000),
+  providerId VARCHAR(255)
+);
