@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { updateNote } from "../api/notes";
+import { getNoteById, updateNote } from "../api/notes";
 import Navbar from "../components/Navbar";
 
 const Note = () => {
@@ -9,17 +10,28 @@ const Note = () => {
   // console.log(note);
 
   const [editable, setEditable] = useState(false);
-  const [content, setContent] = useState(note.content);
+  const [currNote, setCurrNote] = useState({});
+  const [content, setContent] = useState("");
+
+  // fetch note from backend
+  useEffect(() => {
+    const fetchData = async () => {
+      setCurrNote(await getNoteById(note.userId, note.noteId));
+    };
+    fetchData();
+    setContent(currNote.content);
+  }, []);
 
   const handleSave = () => {
-    updateNote({ ...note, content: content });
+    updateNote({ ...currNote, content: content });
+    setCurrNote({ ...currNote, content: content });
     setEditable(false);
   };
 
   return (
     <div className="relative w-full flex flex-col items-center p-5 gap-2">
       <Navbar />
-      <h1>{note.title}</h1>
+      <h1>{currNote.title}</h1>
       <h1>This is note page you can start edit and write your note here</h1>
       {!editable ? (
         <button
@@ -43,11 +55,11 @@ const Note = () => {
           className="container rounded-md w-full h-[60vh] p-2"
           onChange={(e) => setContent(e.target.value)}
         >
-          {content}
+          {currNote.content}
         </textarea>
       ) : (
         <div className="container w-full">
-          <p className="whitespace-pre-wrap text-lg">{content}</p>
+          <p className="whitespace-pre-wrap text-lg">{currNote.content}</p>
         </div>
       )}
     </div>

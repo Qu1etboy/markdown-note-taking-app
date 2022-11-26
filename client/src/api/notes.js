@@ -15,6 +15,11 @@ export const getNote = async (userId) => {
   return await res.json();
 };
 
+export const getNoteById = async (userId, noteId) => {
+  const res = await fetch(`http://localhost:3000/${userId}/notes/${noteId}`);
+  return await res.json();
+};
+
 export const updateNote = async (note) => {
   await fetch(`http://localhost:3000/${note.userId}/notes/${note.noteId}`, {
     method: "PATCH",

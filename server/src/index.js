@@ -109,6 +109,27 @@ app.patch("/:userId/notes/:noteId", (req, res) => {
   }
 });
 
+app.get("/:userId/notes/:noteId", (req, res) => {
+  try {
+    const { userId, noteId } = req.params;
+
+    db.query(
+      "SELECT * FROM notes WHERE noteId = ?",
+      [noteId],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.json(result[0]);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).send();
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`);
 });
