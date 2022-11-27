@@ -26,9 +26,9 @@ const Note = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(currNote);
-  }, [currNote]);
+  // useEffect(() => {
+  //   console.log(currNote);
+  // }, [currNote]);
 
   const handleEdit = (e) => {
     setCurrNote({ ...currNote, content: e.target.value });
@@ -82,7 +82,7 @@ const Note = () => {
               </p>
             ) : (
               <ReactMarkdown
-                className="prose prose-md dark:prose-invert prose-p:text-lg prose-table:text-lg prose-li:text-lg	max-w-none"
+                className="prose prose-md dark:prose-invert prose-p:text-lg prose-table:text-lg prose-li:text-lg max-w-none"
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
                 remarkPlugins={[remarkGfm, remarkMath]}
               >

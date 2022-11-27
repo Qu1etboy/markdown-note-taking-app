@@ -141,6 +141,30 @@ app.get("/:userId/notes/:noteId", (req, res) => {
   }
 });
 
+app.delete("/:userId/notes/delete", (req, res) => {
+  try {
+    // list of note to delete
+    const { notes } = req.body;
+
+    const notesId = notes.map((note) => note.noteId);
+
+    db.query(
+      "DELETE FROM notes WHERE noteId IN (?)",
+      [notesId],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.json(result);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).send();
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`);
 });

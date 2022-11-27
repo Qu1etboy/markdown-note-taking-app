@@ -34,3 +34,15 @@ export const updateNote = async (note) => {
     }),
   });
 };
+
+export const deleteNotes = async (userId, notes) => {
+  await fetch(`http://localhost:3000/${userId}/notes/delete`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      notes: notes,
+    }),
+  });
+};

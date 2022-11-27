@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 
 function App() {
   const { user, authIsReady } = useAuthContext();
-  console.log(user);
+  // console.log(user);
   return (
     <div className="relative w-full flex flex-col items-center p-5 gap-2">
       {authIsReady ? (
