@@ -3,7 +3,12 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getNoteById, updateNote } from "../api/notes";
 import Navbar from "../components/Navbar";
-import md from "markdown-it";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css"; // `rehype-katex` does not import the CSS for you
 
 const Note = () => {
   const location = useLocation();
@@ -76,15 +81,13 @@ const Note = () => {
                 note.
               </p>
             ) : (
-              <div
-                className="prose prose-md dark:prose-invert"
-                dangerouslySetInnerHTML={{
-                  __html: md().render(
-                    currNote.content == null ? "" : currNote.content
-                  ),
-                }}
-              ></div>
-              // <p className="whitespace-pre-wrap text-lg">{currNote.content}</p>
+              <ReactMarkdown
+                className="prose prose-md dark:prose-invert max-w-none"
+                rehypePlugins={[rehypeRaw, rehypeKatex]}
+                remarkPlugins={[remarkGfm, remarkMath]}
+              >
+                {currNote.content}
+              </ReactMarkdown>
             )}
           </div>
         </div>
