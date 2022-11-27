@@ -82,7 +82,7 @@ const Note = () => {
               </p>
             ) : (
               <ReactMarkdown
-                className="prose prose-md dark:prose-invert max-w-none"
+                className="prose prose-md dark:prose-invert prose-p:text-lg prose-table:text-lg prose-li:text-lg	max-w-none"
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
                 remarkPlugins={[remarkGfm, remarkMath]}
               >
