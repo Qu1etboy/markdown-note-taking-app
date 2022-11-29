@@ -14,7 +14,8 @@ const Navbar = () => {
           Markdown Note Taking App
         </Link>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-5">
+        <h1 className="hidden lg:block text-xl">Hello, {user.displayName}</h1>
         <div className="relative">
           <img
             src={user.photoURL}

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { getNote, deleteNotes } from "../api/notes";
 import { Link } from "react-router-dom";
 import { SlNotebook } from "react-icons/sl";
-import { FaSistrix } from "react-icons/fa";
+import { FaSistrix, FaTrashAlt } from "react-icons/fa";
 
 const Home = ({ user }) => {
   const [notes, setNotes] = useState([]);
@@ -57,7 +57,6 @@ const Home = ({ user }) => {
   return (
     <>
       <Navbar />
-      <h1 className="text-3xl">Hello, {user.displayName}</h1>
       {/* <h2 className="text-lg">
         You are sign in from {user.providerData[0].providerId}
       </h2> */}
@@ -85,9 +84,10 @@ const Home = ({ user }) => {
               {selected ? "Cancel" : "Select"}
             </button>
             <button
-              className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-800"
+              className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-800 flex items-center gap-1"
               onClick={handleDeleteNote}
             >
+              <FaTrashAlt />
               Delete
             </button>
           </div>
@@ -101,7 +101,7 @@ const Home = ({ user }) => {
                 <Link
                   to={`${selected ? "#" : `notes/${index + 1}`}`}
                   className={
-                    "max-w-sm p-6 rounded-lg shadow-md flex flex-col justify-center gap-3 hover:bg-neutral-700"
+                    "max-w-sm p-6 rounded-lg flex flex-col justify-center gap-3 hover:bg-neutral-700"
                   }
                   key={note.noteId}
                   state={note}
