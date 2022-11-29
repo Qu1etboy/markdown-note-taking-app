@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css"; // `rehype-katex` does not import the CSS for you
+import { GrowingSpinner } from "../components/Spinner";
 
 const Note = () => {
   const location = useLocation();
@@ -110,7 +111,8 @@ const Note = () => {
           )}
         </>
       ) : (
-        <div className="text-black dark:text-white">Loading....</div>
+        // <div className="text-black dark:text-white">Loading....</div>
+        <GrowingSpinner />
       )}
     </div>
   );
