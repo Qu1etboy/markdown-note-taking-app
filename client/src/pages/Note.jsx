@@ -33,6 +33,11 @@ const Note = () => {
   const handleEdit = (e) => {
     setCurrNote({ ...currNote, content: e.target.value });
   };
+
+  const handleChangeTitle = (e) => {
+    setCurrNote({ ...currNote, title: e.target.value });
+  };
+
   const handleSave = () => {
     updateNote(currNote);
     setEditable(false);
@@ -63,33 +68,37 @@ const Note = () => {
         )}
         <p>Edited {currNote.updatedAt?.replace("T", " ").slice(0, 16)}</p>
       </div>
-      <div className="container w-full">
-        <h1 className="text-5xl font-bold mb-3">{currNote.title}</h1>
-      </div>
+
       {editable ? (
-        <textarea
-          className="container rounded-md w-full h-[72vh] p-2"
-          defaultValue={currNote.content}
-          onChange={(e) => handleEdit(e)}
-        />
+        <>
+          <input
+            placeholder="title"
+            defaultValue={currNote.title}
+            className="container rounded-md w-full p-2"
+            onChange={(e) => handleChangeTitle(e)}
+          />
+          <textarea
+            className="container rounded-md w-full h-[72vh] p-2"
+            defaultValue={currNote.content}
+            onChange={(e) => handleEdit(e)}
+          />
+        </>
       ) : (
-        <div className="w-full flex justify-center">
-          <div className="container w-full">
-            {currNote.content === "" ? (
-              <p className="mt-10">
-                This note is empty. Start by click edit button to write some
-                note.
-              </p>
-            ) : (
-              <ReactMarkdown
-                className="prose prose-md dark:prose-invert prose-p:text-lg prose-table:text-lg prose-li:text-lg max-w-none"
-                rehypePlugins={[rehypeRaw, rehypeKatex]}
-                remarkPlugins={[remarkGfm, remarkMath]}
-              >
-                {currNote.content}
-              </ReactMarkdown>
-            )}
-          </div>
+        <div className="container w-full mb-10">
+          <h1 className="text-5xl font-bold mb-3">{currNote.title}</h1>
+          {currNote.content === "" ? (
+            <p className="mt-10">
+              This note is empty. Start by click edit button to write some note.
+            </p>
+          ) : (
+            <ReactMarkdown
+              className="prose prose-md dark:prose-invert prose-p:text-lg prose-table:text-lg prose-li:text-lg max-w-none"
+              rehypePlugins={[rehypeRaw, rehypeKatex]}
+              remarkPlugins={[remarkGfm, remarkMath]}
+            >
+              {currNote.content}
+            </ReactMarkdown>
+          )}
         </div>
       )}
     </div>

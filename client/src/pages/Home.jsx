@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getNote, deleteNotes } from "../api/notes";
 import { Link } from "react-router-dom";
+import { SlNotebook } from "react-icons/sl";
 
 const Home = ({ user }) => {
   const [noteList, setNoteList] = useState([]);
@@ -81,15 +82,14 @@ const Home = ({ user }) => {
             noteList.map((note, index) => (
               <Link
                 to={`${selected ? "#" : `notes/${index + 1}`}`}
-                className={`${
-                  selected && !selectedNote.includes(note)
-                    ? "bg-gray-600 hover:bg-gray-800"
-                    : "bg-gray-800 hover:bg-slate-700"
-                } max-w-sm p-6 rounded-lg shadow-md flex flex-col justify-center gap-3`}
+                className={
+                  "max-w-sm p-6 rounded-lg shadow-md flex flex-col justify-center gap-3 hover:bg-neutral-700"
+                }
                 key={note.noteId}
                 state={note}
                 onClick={() => (selected ? handleSelectNote(note) : null)}
               >
+                <SlNotebook className="text-6xl text-center w-full" />
                 <p className="mb-2 text-2xl tracking-tight text-gray-900 dark:text-white">
                   {note.title}
                 </p>

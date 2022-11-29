@@ -1,5 +1,3 @@
-import { async } from "@firebase/util";
-
 export const createNote = async (note) => {
   const res = await fetch("http://localhost:3000/notes", {
     method: "POST",
