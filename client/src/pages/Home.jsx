@@ -5,19 +5,21 @@ import { useEffect } from "react";
 import { getNote, deleteNotes } from "../api/notes";
 import { Link } from "react-router-dom";
 import { SlNotebook } from "react-icons/sl";
+import { FaSistrix } from "react-icons/fa";
 
 const Home = ({ user }) => {
-  const [noteList, setNoteList] = useState([]);
+  const [notes, setNotes] = useState([]);
   const [selected, setSelected] = useState(false);
   const [selectedNote, setSelectedNote] = useState([]);
+  const [search, setSearch] = useState("");
 
   const handleSetNoteList = (note) => {
-    setNoteList([...noteList, note]);
+    setNotes([...notes, note]);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      setNoteList(await getNote(user.uid));
+      setNotes(await getNote(user.uid));
     };
     fetchData();
   }, []);
@@ -43,7 +45,7 @@ const Home = ({ user }) => {
     // delete selected note
     // TODO: delete from database
     deleteNotes(user.uid, selectedNote);
-    setNoteList(noteList.filter((n) => !selectedNote.includes(n)));
+    setNotes(notes.filter((n) => !selectedNote.includes(n)));
     setSelected(false);
     setSelectedNote([]);
   };
@@ -61,47 +63,64 @@ const Home = ({ user }) => {
       </h2> */}
 
       <div className="container">
-        <div className="flex gap-5">
-          <AddNoteButton setNoteList={handleSetNoteList} />
-          <button
-            onClick={handleSelect}
-            className="px-4 py-2 border border-slate-600 rounded-lg bg-slate-800 hover:bg-slate-900"
-          >
-            {selected ? "Cancel" : "Select"}
-          </button>
-          <button
-            className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-800"
-            onClick={handleDeleteNote}
-          >
-            Delete
-          </button>
+        <div className="flex gap-5 justify-between">
+          <div className="relative w-[300px]">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <FaSistrix />
+            </div>
+            <input
+              type="text"
+              id="input-group-1"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search notes..."
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-3">
+            <AddNoteButton setNoteList={handleSetNoteList} />
+            <button
+              onClick={handleSelect}
+              className="px-4 py-2 border border-slate-600 rounded-lg bg-slate-800 hover:bg-slate-900"
+            >
+              {selected ? "Cancel" : "Select"}
+            </button>
+            <button
+              className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-800"
+              onClick={handleDeleteNote}
+            >
+              Delete
+            </button>
+          </div>
         </div>
         <h2 className="text-3xl mt-5">All notes</h2>
         <div className="flex flex-wrap gap-5 mt-5">
-          {noteList.length > 0 ? (
-            noteList.map((note, index) => (
-              <Link
-                to={`${selected ? "#" : `notes/${index + 1}`}`}
-                className={
-                  "max-w-sm p-6 rounded-lg shadow-md flex flex-col justify-center gap-3 hover:bg-neutral-700"
-                }
-                key={note.noteId}
-                state={note}
-                onClick={() => (selected ? handleSelectNote(note) : null)}
-              >
-                <SlNotebook className="text-6xl text-center w-full" />
-                <p className="mb-2 text-2xl tracking-tight text-gray-900 dark:text-white">
-                  {note.title}
-                </p>
-                {selected && (
-                  <input
-                    type="checkbox"
-                    className=""
-                    checked={selectedNote.includes(note) ? "checked" : ""}
-                  ></input>
-                )}
-              </Link>
-            ))
+          {notes.length > 0 ? (
+            notes.map((note, index) => {
+              return note.title.toLowerCase().includes(search.toLowerCase()) ||
+                search === "" ? (
+                <Link
+                  to={`${selected ? "#" : `notes/${index + 1}`}`}
+                  className={
+                    "max-w-sm p-6 rounded-lg shadow-md flex flex-col justify-center gap-3 hover:bg-neutral-700"
+                  }
+                  key={note.noteId}
+                  state={note}
+                  onClick={() => (selected ? handleSelectNote(note) : null)}
+                >
+                  <SlNotebook className="text-6xl text-center w-full" />
+                  <p className="mb-2 text-2xl tracking-tight text-gray-900 dark:text-white">
+                    {note.title}
+                  </p>
+                  {selected && (
+                    <input
+                      type="checkbox"
+                      className=""
+                      checked={selectedNote.includes(note) ? "checked" : ""}
+                    ></input>
+                  )}
+                </Link>
+              ) : null;
+            })
           ) : (
             <h2 className="text-center w-full">You have no note yet</h2>
           )}
