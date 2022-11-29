@@ -16,7 +16,7 @@ const Note = () => {
   // console.log(note);
 
   const [editable, setEditable] = useState(false);
-  const [currNote, setCurrNote] = useState({});
+  const [currNote, setCurrNote] = useState(null);
 
   // fetch note from backend
   useEffect(() => {
@@ -66,40 +66,51 @@ const Note = () => {
             Save
           </button>
         )}
-        <p>Edited {currNote.updatedAt?.replace("T", " ").slice(0, 16)}</p>
+        <p className="text-black dark:text-white">
+          Edited {currNote?.updatedAt?.replace("T", " ").slice(0, 16)}
+        </p>
       </div>
 
-      {editable ? (
+      {currNote !== null ? (
         <>
-          <input
-            placeholder="title"
-            defaultValue={currNote.title}
-            className="container rounded-md w-full p-2"
-            onChange={(e) => handleChangeTitle(e)}
-          />
-          <textarea
-            className="container rounded-md w-full h-[72vh] p-2"
-            defaultValue={currNote.content}
-            onChange={(e) => handleEdit(e)}
-          />
+          {editable ? (
+            <>
+              <input
+                placeholder="title"
+                defaultValue={currNote.title}
+                className="container rounded-md w-full p-2 text-black dark:text-white border-gray-400 border dark:border-0"
+                onChange={(e) => handleChangeTitle(e)}
+              />
+              <textarea
+                className="container rounded-md w-full h-[72vh] p-2 text-black dark:text-white border-gray-400 border dark:border-0"
+                defaultValue={currNote.content}
+                onChange={(e) => handleEdit(e)}
+              />
+            </>
+          ) : (
+            <div className="container w-full mb-10">
+              <h1 className="text-5xl font-bold mb-3 dark:text-white text-black">
+                {currNote.title}
+              </h1>
+              {currNote.content === "" ? (
+                <p className="mt-10">
+                  This note is empty. Start by click edit button to write some
+                  note.
+                </p>
+              ) : (
+                <ReactMarkdown
+                  className="prose prose-md dark:prose-invert prose-p:text-lg prose-table:text-lg prose-li:text-lg max-w-none"
+                  rehypePlugins={[rehypeRaw, rehypeKatex]}
+                  remarkPlugins={[remarkGfm, remarkMath]}
+                >
+                  {currNote.content}
+                </ReactMarkdown>
+              )}
+            </div>
+          )}
         </>
       ) : (
-        <div className="container w-full mb-10">
-          <h1 className="text-5xl font-bold mb-3">{currNote.title}</h1>
-          {currNote.content === "" ? (
-            <p className="mt-10">
-              This note is empty. Start by click edit button to write some note.
-            </p>
-          ) : (
-            <ReactMarkdown
-              className="prose prose-md dark:prose-invert prose-p:text-lg prose-table:text-lg prose-li:text-lg max-w-none"
-              rehypePlugins={[rehypeRaw, rehypeKatex]}
-              remarkPlugins={[remarkGfm, remarkMath]}
-            >
-              {currNote.content}
-            </ReactMarkdown>
-          )}
-        </div>
+        <div className="text-black dark:text-white">Loading....</div>
       )}
     </div>
   );

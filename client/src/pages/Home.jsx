@@ -65,7 +65,7 @@ const Home = ({ user }) => {
         <div className="flex gap-5 justify-between">
           <div className="relative w-[300px]">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <FaSistrix />
+              <FaSistrix className="text-gray-400 dark:text-white" />
             </div>
             <input
               type="text"
@@ -92,7 +92,7 @@ const Home = ({ user }) => {
             </button>
           </div>
         </div>
-        <h2 className="text-3xl mt-5">All notes</h2>
+        <h2 className="text-3xl mt-5 text-black dark:text-white">All notes</h2>
         <div className="flex flex-wrap gap-5 mt-5">
           {notes.length > 0 ? (
             notes.map((note, index) => {
@@ -101,13 +101,13 @@ const Home = ({ user }) => {
                 <Link
                   to={`${selected ? "#" : `notes/${index + 1}`}`}
                   className={
-                    "max-w-sm p-6 rounded-lg flex flex-col justify-center gap-3 hover:bg-neutral-700"
+                    "max-w-sm p-6 rounded-lg flex flex-col justify-center gap-3 hover:bg-neutral-200 dark:hover:bg-neutral-700"
                   }
                   key={note.noteId}
                   state={note}
                   onClick={() => (selected ? handleSelectNote(note) : null)}
                 >
-                  <SlNotebook className="text-6xl text-center w-full" />
+                  <SlNotebook className="text-6xl text-center w-full text-gray-500 dark:text-white" />
                   <p className="mb-2 text-2xl tracking-tight text-gray-900 dark:text-white">
                     {note.title}
                   </p>
