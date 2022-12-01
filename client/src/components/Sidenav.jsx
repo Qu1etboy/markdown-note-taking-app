@@ -9,7 +9,7 @@ const Sidenav = () => {
 
   return (
     <div
-      className="w-80 h-screen relative shadow-md border-r border-neutral-700"
+      className="w-80 h-screen relative shadow-md border-r border-neutral-700 hidden lg:block"
       id="sidenavSecExample"
     >
       <div className="pt-4 pb-2 px-6">

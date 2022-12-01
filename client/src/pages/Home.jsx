@@ -56,7 +56,7 @@ const Home = ({ user }) => {
 
   return (
     <Layout>
-      <div className="container p-5">
+      <div className="container p-5 overflow-scroll h-screen">
         <div className="flex gap-5 justify-between">
           <div className="relative w-[300px]">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -88,17 +88,17 @@ const Home = ({ user }) => {
           </div>
         </div>
         <h2 className="text-3xl mt-5 text-black dark:text-white">All Notes</h2>
-        <div className="flex justify-center border">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 mt-5">
-            {notes.length > 0 ? (
-              notes.map((note, index) => {
+        <div className="flex justify-center h-[80vh]">
+          {notes.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 mt-5">
+              {notes.map((note, index) => {
                 return note.title
                   .toLowerCase()
                   .includes(search.toLowerCase()) || search === "" ? (
                   <Link
                     to={`${selected ? "#" : `notes/${index + 1}`}`}
                     className={
-                      "w-[200px] p-6 rounded-lg flex flex-col items-center gap-3 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                      "max-h-[160px] w-[200px] p-6 rounded-lg flex flex-col items-center gap-3 hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer"
                     }
                     key={note.noteId}
                     state={note}
@@ -117,13 +117,13 @@ const Home = ({ user }) => {
                     )}
                   </Link>
                 ) : null;
-              })
-            ) : (
-              <h2 className="text-center text-black dark:text-white">
-                You have no note yet
-              </h2>
-            )}
-          </div>
+              })}
+            </div>
+          ) : (
+            <div className="h-full flex justify-center items-center">
+              <p>You have no note yet</p>
+            </div>
+          )}
         </div>
       </div>
     </Layout>

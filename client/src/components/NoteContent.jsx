@@ -2,8 +2,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import "katex/dist/katex.min.css"; // `rehype-katex` does not import the CSS for you
+import rehypeMathjax from "rehype-mathjax";
 
 const NoteContent = ({ note }) => {
   return (
@@ -18,7 +17,7 @@ const NoteContent = ({ note }) => {
       ) : (
         <ReactMarkdown
           className="prose prose-md dark:prose-invert prose-p:text-lg prose-table:text-lg prose-li:text-lg max-w-none"
-          rehypePlugins={[rehypeRaw, rehypeKatex]}
+          rehypePlugins={[rehypeRaw, rehypeMathjax]}
           remarkPlugins={[remarkGfm, remarkMath]}
         >
           {note.content}
