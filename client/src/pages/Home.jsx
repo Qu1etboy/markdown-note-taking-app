@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Layout from "../components/Layout";
 import AddNoteButton from "../components/AddNoteButton";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -55,13 +55,8 @@ const Home = ({ user }) => {
   }, [selectedNote]);
 
   return (
-    <>
-      <Navbar />
-      {/* <h2 className="text-lg">
-        You are sign in from {user.providerData[0].providerId}
-      </h2> */}
-
-      <div className="container">
+    <Layout>
+      <div className="container p-5">
         <div className="flex gap-5 justify-between">
           <div className="relative w-[300px]">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -92,41 +87,46 @@ const Home = ({ user }) => {
             </button>
           </div>
         </div>
-        <h2 className="text-3xl mt-5 text-black dark:text-white">All notes</h2>
-        <div className="flex flex-wrap gap-5 mt-5">
-          {notes.length > 0 ? (
-            notes.map((note, index) => {
-              return note.title.toLowerCase().includes(search.toLowerCase()) ||
-                search === "" ? (
-                <Link
-                  to={`${selected ? "#" : `notes/${index + 1}`}`}
-                  className={
-                    "max-w-sm p-6 rounded-lg flex flex-col justify-center gap-3 hover:bg-neutral-200 dark:hover:bg-neutral-700"
-                  }
-                  key={note.noteId}
-                  state={note}
-                  onClick={() => (selected ? handleSelectNote(note) : null)}
-                >
-                  <SlNotebook className="text-6xl text-center w-full text-gray-500 dark:text-white" />
-                  <p className="mb-2 text-2xl tracking-tight text-gray-900 dark:text-white">
-                    {note.title}
-                  </p>
-                  {selected && (
-                    <input
-                      type="checkbox"
-                      className=""
-                      checked={selectedNote.includes(note) ? "checked" : ""}
-                    ></input>
-                  )}
-                </Link>
-              ) : null;
-            })
-          ) : (
-            <h2 className="text-center w-full">You have no note yet</h2>
-          )}
+        <h2 className="text-3xl mt-5 text-black dark:text-white">All Notes</h2>
+        <div className="flex justify-center border">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 mt-5">
+            {notes.length > 0 ? (
+              notes.map((note, index) => {
+                return note.title
+                  .toLowerCase()
+                  .includes(search.toLowerCase()) || search === "" ? (
+                  <Link
+                    to={`${selected ? "#" : `notes/${index + 1}`}`}
+                    className={
+                      "w-[200px] p-6 rounded-lg flex flex-col items-center gap-3 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                    }
+                    key={note.noteId}
+                    state={note}
+                    onClick={() => (selected ? handleSelectNote(note) : null)}
+                  >
+                    <SlNotebook className="text-6xl text-center w-full text-gray-500 dark:text-white" />
+                    <p className="mb-2 text-2xl text-center tracking-tight text-gray-900 dark:text-white">
+                      {note.title}
+                    </p>
+                    {selected && (
+                      <input
+                        type="checkbox"
+                        className=""
+                        checked={selectedNote.includes(note) ? "checked" : ""}
+                      ></input>
+                    )}
+                  </Link>
+                ) : null;
+              })
+            ) : (
+              <h2 className="text-center text-black dark:text-white">
+                You have no note yet
+              </h2>
+            )}
+          </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
