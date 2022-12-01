@@ -36,7 +36,7 @@ const Note = () => {
   };
 
   return (
-    <Layout>
+    <Layout title={note.title}>
       {/* <h1>This is note page you can start edit and write your note here</h1> */}
       <div className="p-5 overflow-scroll w-full h-screen">
         <div className="container w-full flex gap-1 items-center mb-5">
