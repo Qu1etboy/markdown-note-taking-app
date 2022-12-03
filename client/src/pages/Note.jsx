@@ -5,6 +5,7 @@ import { getNoteById, updateNote } from "../api/notes";
 import { GrowingSpinner } from "../components/Spinner";
 import NoteContent from "../components/NoteContent";
 import Layout from "../components/Layout";
+import Editor from "@monaco-editor/react";
 
 const Note = () => {
   const location = useLocation();
@@ -23,7 +24,7 @@ const Note = () => {
   }, []);
 
   const handleEdit = (e) => {
-    setCurrNote({ ...currNote, content: e.target.value });
+    setCurrNote({ ...currNote, content: e });
   };
 
   const handleChangeTitle = (e) => {
@@ -80,10 +81,13 @@ const Note = () => {
                   className="container rounded-md w-full mb-2 p-2 text-black dark:text-white border-gray-400 border dark:border-0"
                   onChange={(e) => handleChangeTitle(e)}
                 />
-                <textarea
-                  className="container rounded-md w-full h-[72vh] p-2 text-black dark:text-white border-gray-400 border dark:border-0"
+                <Editor
+                  height="75vh"
+                  defaultLanguage="markdown"
                   defaultValue={currNote.content}
+                  theme="vs-dark"
                   onChange={(e) => handleEdit(e)}
+                  options={{ fontSize: 14 }}
                 />
               </>
             ) : (
