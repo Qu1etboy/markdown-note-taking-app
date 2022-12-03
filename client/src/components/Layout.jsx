@@ -9,12 +9,7 @@ const Layout = ({ title, children }) => {
     }
     window.document.title = t;
   }, []);
-  return (
-    <div className="flex">
-      <Sidenav />
-      {children}
-    </div>
-  );
+  return children;
 };
 
 export default Layout;

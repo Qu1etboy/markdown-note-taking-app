@@ -1,6 +1,7 @@
 import { useAuthContext } from "../contexts/AuthContext";
 import { useState } from "react";
 import { useLogout } from "../hooks/useLogout";
+import { Link } from "react-router-dom";
 
 const Sidenav = () => {
   const { user } = useAuthContext();
@@ -68,11 +69,9 @@ const Sidenav = () => {
       </div>
       <ul className="relative px-1">
         <li className="relative">
-          <a
+          <Link
             className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 dark:text-white text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
-            href="#!"
-            data-mdb-ripple="true"
-            data-mdb-ripple-color="primary"
+            to="/calendar"
           >
             <svg
               aria-hidden="true"
@@ -89,17 +88,12 @@ const Sidenav = () => {
               ></path>
             </svg>
             <span>Calendar</span>
-          </a>
+          </Link>
         </li>
         <li className="relative" id="sidenavSecEx2">
-          <a
+          <Link
             className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 dark:text-white text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
-            data-mdb-ripple="true"
-            data-mdb-ripple-color="primary"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseSidenavSecEx2"
-            aria-expanded="false"
-            aria-controls="collapseSidenavSecEx2"
+            to="/todos"
           >
             <svg
               aria-hidden="true"
@@ -130,7 +124,7 @@ const Sidenav = () => {
                 d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
               ></path>
             </svg>
-          </a>
+          </Link>
           <ul
             className="relative accordion-collapse collapse"
             id="collapseSidenavSecEx2"
@@ -160,14 +154,9 @@ const Sidenav = () => {
           </ul>
         </li>
         <li className="relative" id="sidenavSecEx3">
-          <a
+          <Link
             className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 dark:text-white text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
-            data-mdb-ripple="true"
-            data-mdb-ripple-color="primary"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseSidenavSecEx3"
-            aria-expanded="false"
-            aria-controls="collapseSidenavSecEx3"
+            to="/notes"
           >
             <svg
               aria-hidden="true"
@@ -198,7 +187,7 @@ const Sidenav = () => {
                 d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
               ></path>
             </svg>
-          </a>
+          </Link>
           <ul
             className="relative accordion-collapse collapse"
             id="collapseSidenavSecEx3"
