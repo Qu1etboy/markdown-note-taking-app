@@ -7,10 +7,11 @@ import { Link } from "react-router-dom";
 import { SlNotebook } from "react-icons/sl";
 import { FaSistrix, FaTrashAlt } from "react-icons/fa";
 import { useAuthContext } from "../contexts/AuthContext";
+import { GrowingSpinner } from "../components/Spinner";
 
 const AllNotePage = () => {
   const { user } = useAuthContext();
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(null);
   const [selected, setSelected] = useState(false);
   const [selectedNote, setSelectedNote] = useState([]);
   const [search, setSearch] = useState("");
@@ -87,40 +88,50 @@ const AllNotePage = () => {
         </div>
         <h2 className="text-3xl mt-5 text-black dark:text-white">All Notes</h2>
         <div className="flex justify-center h-[80vh]">
-          {notes.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 mt-5">
-              {notes.map((note, index) => {
-                return note.title
-                  .toLowerCase()
-                  .includes(search.toLowerCase()) || search === "" ? (
-                  <Link
-                    to={`${selected ? "#" : `/notes/${index + 1}`}`}
-                    className={
-                      "max-h-[160px] w-[200px] p-6 rounded-lg flex flex-col items-center gap-3 hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer"
-                    }
-                    key={note.noteId}
-                    state={note}
-                    onClick={() => (selected ? handleSelectNote(note) : null)}
-                  >
-                    <SlNotebook className="text-6xl text-center w-full text-gray-500 dark:text-white" />
-                    <p className="mb-2 text-2xl text-center tracking-tight text-gray-900 dark:text-white">
-                      {note.title}
-                    </p>
-                    {selected && (
-                      <input
-                        type="checkbox"
-                        className=""
-                        checked={selectedNote.includes(note) ? "checked" : ""}
-                      ></input>
-                    )}
-                  </Link>
-                ) : null;
-              })}
-            </div>
+          {notes !== null ? (
+            <>
+              {notes?.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 mt-5">
+                  {notes?.map((note, index) => {
+                    return note.title
+                      .toLowerCase()
+                      .includes(search.toLowerCase()) || search === "" ? (
+                      <Link
+                        to={`${selected ? "#" : `/notes/${index + 1}`}`}
+                        className={
+                          "max-h-[160px] w-[200px] p-6 rounded-lg flex flex-col items-center gap-3 hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer"
+                        }
+                        key={note.noteId}
+                        state={note}
+                        onClick={() =>
+                          selected ? handleSelectNote(note) : null
+                        }
+                      >
+                        <SlNotebook className="text-6xl text-center w-full text-gray-500 dark:text-white" />
+                        <p className="mb-2 text-2xl text-center tracking-tight text-gray-900 dark:text-white">
+                          {note.title}
+                        </p>
+                        {selected && (
+                          <input
+                            type="checkbox"
+                            className=""
+                            checked={
+                              selectedNote.includes(note) ? "checked" : ""
+                            }
+                          ></input>
+                        )}
+                      </Link>
+                    ) : null;
+                  })}
+                </div>
+              ) : (
+                <div className="h-full flex justify-center items-center">
+                  <p>You have no note yet</p>
+                </div>
+              )}
+            </>
           ) : (
-            <div className="h-full flex justify-center items-center">
-              <p>You have no note yet</p>
-            </div>
+            <GrowingSpinner />
           )}
         </div>
       </div>
