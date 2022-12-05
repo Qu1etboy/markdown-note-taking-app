@@ -11,7 +11,7 @@ const NoteContent = ({ note }) => {
         {note.title}
       </h1>
       {note.content === "" ? (
-        <p className="mt-10">
+        <p className="mt-10 text-black dark:text-white">
           This note is empty. Start by click edit button to write some note.
         </p>
       ) : (

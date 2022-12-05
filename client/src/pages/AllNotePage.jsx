@@ -55,7 +55,7 @@ const AllNotePage = () => {
 
   return (
     <Layout>
-      <div className="container p-5 overflow-scroll h-screen">
+      <div className="w-full p-5 overflow-scroll h-screen">
         <div className="flex gap-5 justify-between">
           <div className="relative w-[300px]">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -87,11 +87,11 @@ const AllNotePage = () => {
           </div>
         </div>
         <h2 className="text-3xl mt-5 text-black dark:text-white">All Notes</h2>
-        <div className="flex justify-center h-[80vh]">
+        <div className="flex justify-center">
           {notes !== null ? (
             <>
               {notes?.length > 0 ? (
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 mt-5">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 mt-5">
                   {notes?.map((note, index) => {
                     return note.title
                       .toLowerCase()
@@ -99,7 +99,7 @@ const AllNotePage = () => {
                       <Link
                         to={`${selected ? "#" : `/notes/${index + 1}`}`}
                         className={
-                          "max-h-[160px] w-[200px] p-6 rounded-lg flex flex-col items-center gap-3 hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer"
+                          "min-h-[160px] w-[200px] p-6 rounded-lg flex flex-col items-center gap-3 hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer"
                         }
                         key={note.noteId}
                         state={note}
@@ -107,7 +107,7 @@ const AllNotePage = () => {
                           selected ? handleSelectNote(note) : null
                         }
                       >
-                        <SlNotebook className="text-6xl text-center w-full text-gray-500 dark:text-white" />
+                        <SlNotebook className="text-6xl text-center w-full text-blue-500 dark:text-blue-300" />
                         <p className="mb-2 text-2xl text-center tracking-tight text-gray-900 dark:text-white">
                           {note.title}
                         </p>

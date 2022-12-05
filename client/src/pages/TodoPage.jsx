@@ -4,10 +4,11 @@ import { v4 as uuidv4 } from "uuid";
 import { FaTrashAlt } from "react-icons/fa";
 import { createTodo, deleteTodo, getTodo, updateTodo } from "../api/todos";
 import { useEffect } from "react";
+import { GrowingSpinner } from "../components/Spinner";
 
 const TodoPage = () => {
   const { user } = useAuthContext();
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(null);
   const [todo, setTodo] = useState("");
 
   useEffect(() => {
@@ -61,11 +62,12 @@ const TodoPage = () => {
 
   return (
     <div className="w-full p-5 flex flex-col h-screen overflow-scroll">
-      <h1 className="text-3xl font-bold">Todo page</h1>
-      <h2 className="text-xl mx-auto mb-3">What to do today?</h2>
-      <form className="flex justify-center gap-2 w-full mx-auto">
+      <h2 className="text-xl mx-auto mb-3 text-black dark:text-white">
+        What to do today?
+      </h2>
+      <form className="flex justify-center gap-2 w-full mx-auto mb-5">
         <input
-          className="p-2 rounded-md max-w-[500px] w-full"
+          className="p-2 rounded-md max-w-[500px] w-full border-gray-300 border text-black dark:text-white"
           placeholder="my todo..."
           onChange={(e) => handleSetTodo(e)}
           value={todo}
@@ -78,34 +80,59 @@ const TodoPage = () => {
           Add
         </button>
       </form>
-
-      {todos.map((todo, index) => (
-        <div
-          key={todo.todoId}
-          className={`${
-            todo.todoStatus === "NOT_DONE" ? "border-white" : "border-green-400"
-          } flex justify-between items-center gap-2 rounded-md border px-3 py-4 mt-5`}
-        >
-          <div>
-            <p>{todo.todo}</p>
-            <p>{todo.createdAt.toString()}</p>
-          </div>
-          <div className="flex gap-3">
-            <input
-              onClick={() => handleDoneTodo(todo)}
-              type="checkbox"
-              defaultChecked={todo.todoStatus === "NOT_DONE" ? "" : "true"}
-              className="w-5 checked:accent-green-500 cursor-pointer"
-            />
-            <button
-              onClick={() => handleDeleteTodo(todo)}
-              className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-800 flex items-center gap-1"
+      <h2 className="text-3xl mb-3">All Todos</h2>
+      {todos !== null ? (
+        <>
+          {todos?.map((todo, index) => (
+            <div
+              key={todo.todoId}
+              className={`${
+                todo.todoStatus === "NOT_DONE"
+                  ? "border-neutral-400 dark:border-white"
+                  : "border-green-600 dark:border-green-400"
+              } flex justify-between items-center gap-2 rounded-md border px-3 py-4 mt-5`}
             >
-              <FaTrashAlt />
-            </button>
-          </div>
-        </div>
-      ))}
+              <div>
+                <p
+                  className={`${
+                    todo.todoStatus === "NOT_DONE"
+                      ? "text-black dark:text-white"
+                      : "text-green-600 dark:text-green-400"
+                  } text-md`}
+                >
+                  {todo.todo}
+                </p>
+                <p
+                  className={`${
+                    todo.todoStatus === "NOT_DONE"
+                      ? "text-black dark:text-white"
+                      : "text-green-600 dark:text-green-400"
+                  } text-sm`}
+                >
+                  {todo.createdAt.toString()}
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <input
+                  onClick={() => handleDoneTodo(todo)}
+                  type="checkbox"
+                  defaultChecked={todo.todoStatus === "NOT_DONE" ? "" : "true"}
+                  className="w-5 checked:accent-green-500 cursor-pointer"
+                  title="mark as done"
+                />
+                <button
+                  onClick={() => handleDeleteTodo(todo)}
+                  className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-800 flex items-center gap-1"
+                >
+                  <FaTrashAlt />
+                </button>
+              </div>
+            </div>
+          ))}
+        </>
+      ) : (
+        <GrowingSpinner />
+      )}
     </div>
   );
 };
