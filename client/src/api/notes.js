@@ -1,5 +1,7 @@
+import { API_URL } from "./config";
+
 export const createNote = async (note) => {
-  const res = await fetch("http://localhost:3000/notes", {
+  const res = await fetch(`${API_URL}/notes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -10,17 +12,17 @@ export const createNote = async (note) => {
 };
 
 export const getNote = async (userId) => {
-  const res = await fetch(`http://localhost:3000/${userId}/notes`);
+  const res = await fetch(`${API_URL}/notes/${userId}`);
   return await res.json();
 };
 
 export const getNoteById = async (userId, noteId) => {
-  const res = await fetch(`http://localhost:3000/${userId}/notes/${noteId}`);
+  const res = await fetch(`${API_URL}/notes/${userId}/${noteId}`);
   return await res.json();
 };
 
 export const updateNote = async (note) => {
-  await fetch(`http://localhost:3000/${note.userId}/notes/${note.noteId}`, {
+  await fetch(`${API_URL}/notes/${note.userId}/${note.noteId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +36,7 @@ export const updateNote = async (note) => {
 };
 
 export const deleteNotes = async (userId, notes) => {
-  await fetch(`http://localhost:3000/${userId}/notes/delete`, {
+  await fetch(`${API_URL}/notes/${userId}/delete`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

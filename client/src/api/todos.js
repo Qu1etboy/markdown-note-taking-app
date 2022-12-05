@@ -1,5 +1,7 @@
+import { API_URL } from "./config";
+
 export const createTodo = async (userId, todo) => {
-  const res = await fetch(`http://localhost:3000/${userId}/todos`, {
+  const res = await fetch(`${API_URL}/todos/${userId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -10,12 +12,12 @@ export const createTodo = async (userId, todo) => {
 };
 
 export const getTodo = async (userId) => {
-  const res = await fetch(`http://localhost:3000/${userId}/todos`);
+  const res = await fetch(`${API_URL}/todos/${userId}`);
   return await res.json();
 };
 
 export const updateTodo = async (userId, todo) => {
-  await fetch(`http://localhost:3000/${userId}/todos/${todo.todoId}`, {
+  await fetch(`${API_URL}/todos/${userId}/${todo.todoId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +27,7 @@ export const updateTodo = async (userId, todo) => {
 };
 
 export const deleteTodo = async (userId, todo) => {
-  await fetch(`http://localhost:3000/${userId}/todos/${todo.todoId}`, {
+  await fetch(`${API_URL}/todos/${userId}/${todo.todoId}`, {
     method: "DELETE",
   });
 };
