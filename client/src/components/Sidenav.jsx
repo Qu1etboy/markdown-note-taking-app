@@ -72,7 +72,7 @@ const Sidenav = () => {
         <li className="relative">
           <Link
             className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 dark:text-white text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
-            to="/calendar"
+            to="/home"
           >
             <FaHome className="w-3 h-3 mr-3" />
             <span>Home</span>

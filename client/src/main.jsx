@@ -13,8 +13,7 @@ import Note from "./pages/Note";
 import "./index.css";
 import AllNotePage from "./pages/AllNotePage";
 import TodoPage from "./pages/TodoPage";
-import CalendarPage from "./pages/CalendarPage";
-
+import Home from "./pages/Home";
 // react router dom v6
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,7 +23,7 @@ const router = createBrowserRouter(
         <Route path="notes" element={<AllNotePage />} />
         <Route path="notes/:id" element={<Note />} />
         <Route path="todos" element={<TodoPage />} />
-        <Route path="calendar" element={<CalendarPage />} />
+        <Route path="home" element={<Home />} />
       </Route>
     </Route>
   )
